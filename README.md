@@ -10,6 +10,7 @@
 - 📊 실시간 업로드 진행 상태 표시
 - 🔒 봇 토큰 보안 (마스킹 처리)
 - 📦 다양한 파일 형식 지원
+- 🔧 **자동 패키지 설치**: 실행 시 필요한 패키지를 자동으로 확인하고 설치
 
 ## 📋 사전 준비
 
@@ -38,7 +39,28 @@
 
 ## 🚀 설치 및 실행
 
-### 1. 필요한 패키지 설치
+### 간편 실행 (추천) ⭐
+
+**필요한 패키지가 자동으로 설치됩니다!**
+
+```bash
+python telegram_uploader.py
+```
+
+또는 (Linux/Mac):
+
+```bash
+python3 telegram_uploader.py
+```
+
+프로그램 실행 시 자동으로:
+- ✅ 필요한 패키지 확인
+- ✅ 누락된 패키지만 자동 설치
+- ✅ 이미 설치된 패키지는 건너뛰기
+
+### 수동 설치 (선택사항)
+
+사전에 패키지를 설치하고 싶다면:
 
 ```bash
 pip install -r requirements.txt
@@ -47,16 +69,10 @@ pip install -r requirements.txt
 또는 개별 설치:
 
 ```bash
-pip install python-telegram-bot==20.7 requests==2.31.0
+pip install requests
 ```
 
-### 2. 프로그램 실행
-
-```bash
-python telegram_uploader.py
-```
-
-또는 실행 권한 부여 후:
+### Linux/Mac 실행 권한 부여 (선택사항)
 
 ```bash
 chmod +x telegram_uploader.py

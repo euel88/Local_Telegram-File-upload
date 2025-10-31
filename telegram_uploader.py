@@ -4,6 +4,64 @@
 로컬 컴퓨터에서 파일을 선택하여 텔레그램 봇을 통해 채팅방으로 전송합니다.
 """
 
+import sys
+import subprocess
+
+
+def check_and_install_packages():
+    """필요한 패키지를 확인하고 자동으로 설치합니다."""
+    required_packages = {
+        'requests': 'requests'
+    }
+
+    missing_packages = []
+
+    print("=" * 60)
+    print("텔레그램 파일 업로더 - 패키지 확인 중...")
+    print("=" * 60)
+
+    # 각 패키지 확인
+    for package_name, install_name in required_packages.items():
+        try:
+            __import__(package_name)
+            print(f"✓ {package_name}: 이미 설치되어 있습니다.")
+        except ImportError:
+            print(f"✗ {package_name}: 설치되지 않았습니다.")
+            missing_packages.append(install_name)
+
+    # 설치되지 않은 패키지가 있으면 설치
+    if missing_packages:
+        print("\n" + "=" * 60)
+        print(f"누락된 패키지를 설치합니다: {', '.join(missing_packages)}")
+        print("=" * 60 + "\n")
+
+        for package in missing_packages:
+            try:
+                print(f">>> {package} 설치 중...")
+                subprocess.check_call(
+                    [sys.executable, "-m", "pip", "install", package],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE
+                )
+                print(f"✓ {package} 설치 완료!\n")
+            except subprocess.CalledProcessError as e:
+                print(f"✗ {package} 설치 실패: {e}")
+                print("\n수동으로 설치해주세요:")
+                print(f"  pip install {package}\n")
+                sys.exit(1)
+
+        print("=" * 60)
+        print("모든 패키지 설치가 완료되었습니다!")
+        print("=" * 60 + "\n")
+    else:
+        print("\n모든 필수 패키지가 설치되어 있습니다.")
+        print("=" * 60 + "\n")
+
+
+# 프로그램 시작 전 패키지 확인 및 설치
+check_and_install_packages()
+
+# 필수 패키지 임포트
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import requests
