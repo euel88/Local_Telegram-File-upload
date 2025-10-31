@@ -118,6 +118,18 @@ chmod +x telegram_uploader.py
 
 ## 🛠️ 문제 해결
 
+### Python 버전 오류
+
+프로그램 실행 시 Python 버전 경고가 나타나면:
+
+```bash
+# 현재 Python 버전 확인
+python --version
+
+# Python 3.11로 실행
+python3.11 telegram_uploader.py
+```
+
 ### 업로드 실패 시
 
 1. **봇 토큰 확인**
@@ -138,12 +150,33 @@ chmod +x telegram_uploader.py
 
 ## 🖥️ 시스템 요구사항
 
-- **Python**: 3.7 이상
+- **Python**: 3.11 (필수)
 - **운영체제**: Windows, macOS, Linux
 - **필수 패키지**:
-  - python-telegram-bot
-  - requests
+  - requests (자동 설치됨)
   - tkinter (Python 기본 포함)
+
+### Python 3.11 설치
+
+#### Windows:
+[python.org](https://www.python.org/downloads/)에서 Python 3.11 다운로드
+
+#### macOS:
+```bash
+brew install python@3.11
+```
+
+#### Linux (Ubuntu/Debian):
+```bash
+sudo apt update
+sudo apt install python3.11
+```
+
+#### pyenv 사용:
+```bash
+pyenv install 3.11
+pyenv local 3.11
+```
 
 ## 📄 라이선스
 

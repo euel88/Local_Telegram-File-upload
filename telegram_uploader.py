@@ -8,6 +8,41 @@ import sys
 import subprocess
 
 
+def check_python_version():
+    """Python 3.11 버전인지 확인합니다."""
+    required_version = (3, 11)
+    current_version = sys.version_info[:2]
+
+    print("=" * 60)
+    print("Python 버전 확인")
+    print("=" * 60)
+    print(f"현재 Python 버전: {current_version[0]}.{current_version[1]}")
+    print(f"필요한 Python 버전: {required_version[0]}.{required_version[1]}")
+
+    if current_version != required_version:
+        print("\n" + "!" * 60)
+        print("⚠️  경고: Python 3.11이 필요합니다!")
+        print("!" * 60)
+        print(f"\n현재 사용 중인 버전: Python {current_version[0]}.{current_version[1]}")
+        print(f"필요한 버전: Python 3.11")
+        print("\nPython 3.11을 설치하고 다음 명령으로 실행해주세요:")
+        print("  python3.11 telegram_uploader.py")
+        print("\n또는 pyenv를 사용하는 경우:")
+        print("  pyenv install 3.11")
+        print("  pyenv local 3.11")
+        print("=" * 60 + "\n")
+
+        response = input("그래도 계속 실행하시겠습니까? (y/N): ").strip().lower()
+        if response != 'y':
+            print("프로그램을 종료합니다.")
+            sys.exit(1)
+        else:
+            print("\n⚠️  호환성 문제가 발생할 수 있습니다.\n")
+    else:
+        print("✓ Python 버전이 올바릅니다!")
+        print("=" * 60 + "\n")
+
+
 def check_and_install_packages():
     """필요한 패키지를 확인하고 자동으로 설치합니다."""
     required_packages = {
@@ -57,6 +92,9 @@ def check_and_install_packages():
         print("\n모든 필수 패키지가 설치되어 있습니다.")
         print("=" * 60 + "\n")
 
+
+# 프로그램 시작 전 Python 버전 확인
+check_python_version()
 
 # 프로그램 시작 전 패키지 확인 및 설치
 check_and_install_packages()
