@@ -39,21 +39,29 @@
 
 ## 🚀 설치 및 실행
 
-### 간편 실행 (추천) ⭐
+### 가장 쉬운 방법 ⭐
 
-**필요한 패키지가 자동으로 설치됩니다!**
+필요한 패키지가 자동으로 설치됩니다!
 
-```bash
-python telegram_uploader.py
-```
+#### Windows:
+1. `run.bat` 파일을 더블클릭
+2. 또는 명령 프롬프트에서:
+   ```cmd
+   python telegram_uploader.py
+   ```
 
-또는 (Linux/Mac):
-
-```bash
-python3 telegram_uploader.py
-```
+#### macOS/Linux:
+1. 터미널에서 다음 명령 실행:
+   ```bash
+   ./run.sh
+   ```
+2. 또는 직접 실행:
+   ```bash
+   python3 telegram_uploader.py
+   ```
 
 프로그램 실행 시 자동으로:
+- ✅ Python 버전 확인 (3.11 권장)
 - ✅ 필요한 패키지 확인
 - ✅ 누락된 패키지만 자동 설치
 - ✅ 이미 설치된 패키지는 건너뛰기
@@ -70,13 +78,6 @@ pip install -r requirements.txt
 
 ```bash
 pip install requests
-```
-
-### Linux/Mac 실행 권한 부여 (선택사항)
-
-```bash
-chmod +x telegram_uploader.py
-./telegram_uploader.py
 ```
 
 ## 📖 사용 방법

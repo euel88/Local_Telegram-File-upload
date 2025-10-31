@@ -17,27 +17,19 @@ def check_python_version():
     print("Python 버전 확인")
     print("=" * 60)
     print(f"현재 Python 버전: {current_version[0]}.{current_version[1]}")
-    print(f"필요한 Python 버전: {required_version[0]}.{required_version[1]}")
+    print(f"권장 Python 버전: {required_version[0]}.{required_version[1]}")
 
     if current_version != required_version:
         print("\n" + "!" * 60)
-        print("⚠️  경고: Python 3.11이 필요합니다!")
+        print("⚠️  경고: Python 3.11 권장")
         print("!" * 60)
         print(f"\n현재 사용 중인 버전: Python {current_version[0]}.{current_version[1]}")
-        print(f"필요한 버전: Python 3.11")
-        print("\nPython 3.11을 설치하고 다음 명령으로 실행해주세요:")
+        print(f"권장 버전: Python 3.11")
+        print("\n더 나은 호환성을 위해 Python 3.11 설치를 권장합니다:")
         print("  python3.11 telegram_uploader.py")
-        print("\n또는 pyenv를 사용하는 경우:")
-        print("  pyenv install 3.11")
-        print("  pyenv local 3.11")
+        print("\n그래도 현재 버전으로 계속 실행합니다...")
+        print("⚠️  일부 기능이 정상 작동하지 않을 수 있습니다.")
         print("=" * 60 + "\n")
-
-        response = input("그래도 계속 실행하시겠습니까? (y/N): ").strip().lower()
-        if response != 'y':
-            print("프로그램을 종료합니다.")
-            sys.exit(1)
-        else:
-            print("\n⚠️  호환성 문제가 발생할 수 있습니다.\n")
     else:
         print("✓ Python 버전이 올바릅니다!")
         print("=" * 60 + "\n")
@@ -82,7 +74,9 @@ def check_and_install_packages():
             except subprocess.CalledProcessError as e:
                 print(f"✗ {package} 설치 실패: {e}")
                 print("\n수동으로 설치해주세요:")
-                print(f"  pip install {package}\n")
+                print(f"  pip install {package}")
+                print("\n" + "=" * 60)
+                input("\n아무 키나 눌러 종료...")
                 sys.exit(1)
 
         print("=" * 60)
@@ -434,10 +428,49 @@ class TelegramUploaderGUI:
 
 def main():
     """메인 함수"""
-    root = tk.Tk()
-    app = TelegramUploaderGUI(root)
-    root.mainloop()
+    try:
+        print("GUI 창을 여는 중...")
+        root = tk.Tk()
+        app = TelegramUploaderGUI(root)
+        print("✓ GUI가 정상적으로 시작되었습니다!")
+        print("=" * 60 + "\n")
+        root.mainloop()
+    except ImportError as e:
+        print("\n" + "!" * 60)
+        print("❌ 오류: 필수 모듈을 불러올 수 없습니다")
+        print("!" * 60)
+        print(f"\n오류 내용: {e}")
+
+        if 'tkinter' in str(e).lower():
+            print("\ntkinter가 설치되지 않았습니다.")
+            print("\n해결 방법:")
+            print("  Windows: Python 설치 시 tkinter 포함되어 있음")
+            print("  macOS: 기본 포함")
+            print("  Linux (Ubuntu/Debian):")
+            print("    sudo apt-get install python3-tk")
+            print("  Linux (Fedora):")
+            print("    sudo dnf install python3-tkinter")
+
+        print("\n" + "=" * 60)
+        input("\n아무 키나 눌러 종료...")
+        sys.exit(1)
+    except Exception as e:
+        print("\n" + "!" * 60)
+        print("❌ 예상치 못한 오류가 발생했습니다")
+        print("!" * 60)
+        print(f"\n오류 내용: {e}")
+        print(f"오류 타입: {type(e).__name__}")
+        print("\n자세한 오류 정보:")
+        import traceback
+        traceback.print_exc()
+        print("\n" + "=" * 60)
+        input("\n아무 키나 눌러 종료...")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\n\n프로그램이 사용자에 의해 중단되었습니다.")
+        sys.exit(0)
